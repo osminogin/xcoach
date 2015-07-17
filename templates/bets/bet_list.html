@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    <h1 class="page-header">Betting History</h1>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Event</th>
+                <th>Settled date</th>
+                <th class="text-right">Sum</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for bet in object_list %}
+            <tr>
+                <td>
+                    <a href="{% url 'event_detail' bet.event.id %}">{{ bet.event.title }}</a>
+                </td>
+                <td>{{ bet.settled_date|date:"N j, P" }}</td>
+                <td class="text-right">{{ bet.balance }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

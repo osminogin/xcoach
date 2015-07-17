@@ -1,0 +1,9 @@
+.idea/
+
+*.py[cod]
+
+.coverage
+
+betfair.pem
+db.sqlite3
+settings_local.py

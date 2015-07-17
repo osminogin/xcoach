@@ -1,0 +1,6 @@
+Django>=1.8.2
+pytz>=2015.4
+xlrd>=0.9.4
+betfair.py>=0.2.2
+pytest-django>=2.8.0
+pytest-cov>=1.8.1
