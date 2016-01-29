@@ -2,9 +2,11 @@ import re
 import xlrd
 from datetime import datetime
 from collections import Counter
+from django.utils.timezone import make_aware
 from django.core.management.base import BaseCommand
 from django.core import management
 from django.conf import settings
+from pytz import timezone
 from apps.bets.models import Bet
 from apps.events.models import Event
 from apps.markets.models import Market
@@ -18,6 +20,9 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         # Update data before importing bets
         management.call_command('updatedata')
+
+        # XXX: Hardcoding
+        msk = timezone('Europe/Moscow')
 
         # Parse and store bets from Excel file
         with xlrd.open_workbook(options['file']) as book:
@@ -37,8 +42,11 @@ class Command(BaseCommand):
                 if found:
                     event_title = found.group(1)
                     market_name = found.group(2)
-                start_time = datetime.strptime(row[1], '%d-%b-%y %H:%M ')
-                settled_date = datetime.strptime(row[2], '%d-%b-%y %H:%M ')
+                native_start_time = datetime.strptime(row[1], '%d-%b-%y %H:%M ')
+                native_settled_date = datetime.strptime(row[2], '%d-%b-%y %H:%M ')
+                # XXX: must translate to localtime
+                start_time = make_aware(native_start_time, msk)
+                settled_date = make_aware(native_settled_date, msk)
                 balance = row[3]
 
                 # Check only target teams (but warn is not related to competitions)

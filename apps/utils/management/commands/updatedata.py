@@ -1,3 +1,4 @@
+from django.utils.timezone import localtime, make_aware
 from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.db.utils import IntegrityError
@@ -18,6 +19,7 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         # XXX: Hardcodign
         msk = timezone('Europe/Moscow')
+        utc = timezone('UTC')
 
         # Loop over configured targets
         for competition in settings.TARGETS:
@@ -30,9 +32,9 @@ class Command(BaseCommand):
                 )
                 # Event processing
                 for e in events:
-                    tz = timezone(e.event.timezone)
                     event_id = int(e.event.id)
-                    start_time = tz.localize(e.event.open_date).astimezone(msk)
+                    raw_time = make_aware(e.event.open_date, utc)
+                    start_time = localtime(raw_time, msk)
                     # Save persistent data
                     try:
                         event = Event.objects.create(id=event_id,
