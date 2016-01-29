@@ -13,6 +13,28 @@
     </div>
     <p>...</p>
 
-    <h2 class="page-header">Last events</h2>
-    <p>...</p>
+    <h2 class="page-header">Related</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Settled</th>
+                <th class="text-center">Profit</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for bet in related_bets %}
+            <tr>
+                <td>
+                    <a href="{% url 'event_detail' bet.event.id %}">{{ bet.event.title }}</a>
+                </td>
+                <td>{{ bet.settled_date|date:"N j, P" }}</td>
+                <td class="text-center">{{ bet.balance }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <h4 class="text-right">{{ total.balance__sum|floatformat }} usd</h4>
+    </div>
 {% endblock %}
