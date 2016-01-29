@@ -15,11 +15,14 @@ Including another URLconf
 """
 from django.conf import settings
 from django.conf.urls import include, url
+from django.views.generic.base import RedirectView
+from django.core.urlresolvers import reverse_lazy
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
-    url(r'^bet/', include('apps.bets.urls')),
+    url(r'^$', RedirectView.as_view(url=reverse_lazy('event_list')), name='index'),
+    url(r'^bets/', include('apps.bets.urls')),
     url(r'^event/', include('apps.events.urls')),
     url(r'^admin/', include(admin.site.urls)),
 ]
