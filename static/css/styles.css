@@ -118,3 +118,8 @@ body {
 .table > tbody > tr > td.betting-buttons {
   padding: 5px;
 }
+
+.navbar-header .navbar-brand {
+  padding-left: 20px;
+  padding-right: 30px;
+}
