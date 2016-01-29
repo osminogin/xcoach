@@ -1,12 +1,16 @@
+<h4>Strategies</h4>
 <ul class="nav nav-sidebar">
-    <li><a href="#">Dashboard <span class="sr-only">(current)</span></a></li>
-    <li><a href="{% url 'bet_list' %}">My Bets <span class="badge pull-right">8</span></a></li>
-    <li><a href="{% url 'event_list' %}">Events <span class="badge pull-right">4</span></a></li>
-    <li><a href="#">Profit & Loss <span class="sr-only">(current)</span></a></li>
+    <li><a href="{% url 'event_list' %}">Martingale <span class="badge pull-right">4</span></a></li>
+    <li><a href="#">Both to Score</a></li>
+    <li><a href="#">Custom</a></li>
 </ul>
+
+<h4>Analytics</h4>
 <ul class="nav nav-sidebar">
-    <li><a href="#">Strategies</a></li>
-    <li><a href="#">Reports</a></li>
-    <li><a href="#">Analytics</a></li>
-    <li><a href="#">Export</a></li>
+    <li><a href="#">Markers</a></li>
+</ul>
+
+<h4>Statistics</h4>
+<ul class="nav nav-sidebar">
+    <li><a href="{% url 'bets_list' %}">Profit / Loss</a></li>
 </ul>
